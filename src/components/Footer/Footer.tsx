@@ -1,11 +1,9 @@
 import React from 'react';
 
-const PostList = () => {
+export const Footer = () => {
     return (
         <div>
-            
+
         </div>
     );
 };
-
-export default PostList;

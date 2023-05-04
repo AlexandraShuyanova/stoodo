@@ -1,0 +1,17 @@
+.btn {
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.startIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 4px;
+  font-size: small;
+
+  @media (max-width: 576px) {
+    margin-right: 2px;
+  }
+}

@@ -1,0 +1,16 @@
+.sidebar {
+    display: flex;
+    position: -webkit-sticky;
+    position: sticky;
+    height: calc(100vh - 60px);;
+    top: 60px;
+}
+
+.list {
+  margin: 12px 10px;
+}
+
+.item {
+  height: fit-content;
+  width: fit-content;
+}

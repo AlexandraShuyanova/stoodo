@@ -1,0 +1,30 @@
+.container {
+  display: flex;
+  flex-direction:column;
+}
+
+.main {
+  display: flex;
+  flex-direction:row;
+}
+
+.postList {
+  display: flex;
+  flex-grow: 1;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  margin: 0 auto;
+  justify-content: center;
+  position: relative;
+}
+
+.leftSideBar {
+  width: 220px;
+}
+
+.rightSideBar {
+  width: 320px;
+}
+
+
+
