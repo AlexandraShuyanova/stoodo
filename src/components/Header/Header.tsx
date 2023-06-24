@@ -1,17 +1,42 @@
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query'
+
 import styles from './Header.module.scss';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import MenuIcon from '@mui/icons-material/Menu';
 import AddIcon from '@mui/icons-material/Add';
+import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
+import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faAdd} from "@fortawesome/free-solid-svg-icons";
+import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
 import { styled, alpha } from '@mui/material/styles';
 import Link from 'next/link';
 import {Search} from "./components/Search/Search";
-import {useRef} from "react";
+import {useRef, useState} from "react";
 import {Button} from "@/components/UI/Button/Button";
+import {fontSize} from "@mui/system";
 
-export const Header = () => {
+// Define our single API slice object
+export const apiSlice = createApi({
+    reducerPath: 'api',
+    baseQuery: fetchBaseQuery({ baseUrl: '/fakeApi' }),
+    endpoints: builder => ({
+        getPosts: builder.query({
+            query: () => '/posts'
+        })
+    })
+})
+interface HeaderProps
+{
+    updateData:(value: boolean) => void;
+}
+export const Header = ({updateData}: HeaderProps) => {
+
+    const[modal, setModal] = useState(false)
+
     return (
         <header className={styles.header}>
             <div className={styles.container}>
@@ -25,17 +50,20 @@ export const Header = () => {
                 </div>
                 <div className={styles.sectionCenter}>
                     <Search />
-                    <div className={styles.sectionCreate}>
-                        <Button className={styles.createBtn} startIcon={<AddIcon/>}>
-                            Create
-                        </Button>
-                    </div>
+                    <Button className={styles.createBtn}>
+                        <img src={"/images/plus-light.svg"} width="20" height="20"/>
+                        Create
+                    </Button>
                 </div>
                 <div className={styles.sectionRight}>
-                    <button>Создать</button>
-                    <button>Создать</button>
+                    <Button className={styles.notificationsBtn}>
+                        <img src={"/images/bell.svg"} width="28" height="28"/>
+                    </Button>
+                    <Button className={styles.personBtn} onClick={() => updateData(true)}>
+                        <img src={"/images/login.svg"} width="28" height="28"/>
+                        Log In
+                    </Button>
                 </div>
-
             </div>
         </header>
     );

@@ -3,12 +3,20 @@
   appearance: none;
   outline: none;
   box-shadow: none;
-  background-color: #ffdee5;
-  border-radius: 9px;
-  border-color: transparent;
   padding: 0 15px;
   height: 44px;
-  font-size: 16px;
-  font-family: inherit;
+  line-height: 17px;
+  font-family: Arial;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+}
+
+.caption {
+  margin-bottom: 7px;
+  font-weight: 500;
+  font-size: 14px;
   line-height: 17px;
 }

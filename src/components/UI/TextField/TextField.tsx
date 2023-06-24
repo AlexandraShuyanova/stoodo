@@ -4,13 +4,18 @@ import styles from './TextField.module.scss';
 
 interface TextFieldProps {
     className?: string
+    type?: string
+    label?: string
     placeholder?: string
 }
 
-export const TextField: FC<TextFieldProps> = ({className, ...props}) => {
+export const TextField: FC<TextFieldProps> = ({className, label, type,...props}) => {
     return (
-        <input className={classNames(styles.textField, className)}
-            {...props}>
-        </input>
+        <label className={classNames(styles.label, className)}>
+            {label && <span className={styles.caption}>{label}</span>}
+            <input className={styles.textField}
+                   {...props}>
+            </input>
+        </label>
     )
 }

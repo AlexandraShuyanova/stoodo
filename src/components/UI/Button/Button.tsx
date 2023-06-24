@@ -7,10 +7,9 @@ import classNames from 'classnames';
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     startIcon?: ReactNode;
 }
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({className, children, startIcon=null}, ref) => {
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({className, children, startIcon=null, ...props}) => {
     return(
-        <button
-            className={classNames(className, styles.btn)}
+        <button {...props} className={classNames(className, styles.btn)}
         >
             {startIcon && <span className={styles.startIcon}>{startIcon}</span>}
             {children}
