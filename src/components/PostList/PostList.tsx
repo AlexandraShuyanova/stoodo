@@ -1,23 +1,19 @@
 import {useState} from 'react';
 import {PostItem} from "@/components/PostItem/PostItem";
 import styles from "./PostList.module.scss";
+import {useGetListPublishedQuery} from "../../services/StoodoService";
 
 export const PostList = () => {
 
-    const [posts, setPosts] = useState([
-            {id: 1, title: 'JavaScript', description: 'JavaScript - это язык программирования'},
-            {id: 2, title: 'Java', description: 'Java - это язык программирования'},
-            {id: 3, title: 'Java', description: 'Java - это язык программирования'},
-            {id: 4, title: 'Java', description: 'Java - это язык программирования'}
-        ]
-    )
+    const {data, isFetching} = useGetListPublishedQuery('');
+
     return (
         <section>
             <div className={styles.container}>
-                {posts.map((post, index) =>
+                {data?.content?.map(post =>
                     <PostItem
                         key={post.id}
-                        //item={post}*/
+                        item={post}
                     />
                 )}
             </div>

@@ -1,25 +1,3 @@
-/*import {FC} from 'react';
-import {IPost} from '@/types/IPost';
-import styles from './PostItem.module.scss';
-
-interface PostItemProps {
-    item: IPost,
-}
-export const PostItem: FC<PostItemProps> = ({item}) => {
-
-    const {id, title, description} = {...item}
-    return (
-        <div className={styles.post}>
-            <div className="post__content">
-                <strong>{id}. {title}</strong>
-                <div>
-                    {description}
-                </div>
-            </div>
-        </div>
-    );
-};*/
-
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
@@ -37,8 +15,13 @@ import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import styles from './PostItem.module.scss';
+import {IPost} from "@/types/IPost";
+import {FC} from "react";
 
 
+interface PostItemProps {
+    item: IPost
+}
 interface ExpandMoreProps extends IconButtonProps {
     expand: boolean;
 }
@@ -54,7 +37,9 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
     }),
 }));
 
-export const PostItem = () => {
+export const PostItem: FC<PostItemProps> = ({item}) => {
+
+    const {id, title, description, image, owner} = {...item}
     const [expanded, setExpanded] = React.useState(false);
 
     const handleExpandClick = () => {
@@ -74,26 +59,18 @@ export const PostItem = () => {
                         <MoreVertIcon />
                     </IconButton>
                 }
-                title="Shrimp and Chorizo Paella"
-                subheader="September 14, 2016"
+                title={title}
+                subheader={owner.firstName + " " + owner.lastName}
             />
             <CardMedia
                 component="img"
                 height="194"
-                image="/images/paella.jpg"
+                image={image.url}
                 alt="Paella dish"
             />
             <CardContent>
                 <Typography variant="body2" color="text.secondary">
-                    This impressive paella is a perfect party dish and a fun meal to cook
-                    together with your guests. Add 1 cup of frozen peas along with the mussels,
-                    if you like.
-                    This impressive paella is a perfect party dish and a fun meal to cook
-                    together with your guests. Add 1 cup of frozen peas along with the mussels,
-                    if you like.
-                    This impressive paella is a perfect party dish and a fun meal to cook
-                    together with your guests. Add 1 cup of frozen peas along with the mussels,
-                    if you like.
+                    {description}
                 </Typography>
             </CardContent>
             <CardActions disableSpacing>

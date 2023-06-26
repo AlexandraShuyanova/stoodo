@@ -1,12 +1,15 @@
-import React, {FC} from 'react'
+import React, {ChangeEvent, FC} from 'react'
 import classNames from 'classnames'
 import styles from './TextField.module.scss';
 
 interface TextFieldProps {
-    className?: string
-    type?: string
-    label?: string
-    placeholder?: string
+    className?: string,
+    value?: string | number,
+    onChange?: (e: ChangeEvent<HTMLInputElement>) => void,
+    name?: string,
+    type?: string,
+    label?: string,
+    placeholder?: string,
 }
 
 export const TextField: FC<TextFieldProps> = ({className, label, type,...props}) => {
