@@ -1,6 +1,7 @@
 import {configureStore, PreloadedState} from "@reduxjs/toolkit";
 import {stoodoAPI} from "../services/StoodoService";
 import {useMemo} from 'react'
+import authReducer from "./authSlice"
 
 let store: AppStore
 
@@ -8,6 +9,7 @@ export const initStore = (preloadedState = {}) => {
     return configureStore({
         reducer: {
             [stoodoAPI.reducerPath]: stoodoAPI.reducer,
+            auth: authReducer,
         },
         preloadedState,
         middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(stoodoAPI.middleware),

@@ -2,9 +2,15 @@ import styles from "./AuthForm.module.scss"
 import {Button} from "@/components/UI/Button/Button";
 import {TextField} from "@/components/UI/TextField/TextField";
 import React, {useState} from "react";
-import {LoginRequest, useLoginMutation} from "../../../../services/StoodoService";
+import {LoginRequest, useGetListNotPublishedQuery, useLoginMutation} from "../../../../services/StoodoService";
+import { useDispatch } from 'react-redux'
+import {setCredentials} from "../../../../store/authSlice";
+import { useRouter } from 'next/router'
 
 export const AuthForm = () => {
+
+    const dispatch = useDispatch()
+    const router = useRouter()
 
     const [login, { isLoading }] = useLoginMutation()
 
@@ -26,7 +32,9 @@ export const AuthForm = () => {
     const handleLogin = async() => {
             try {
                 const user = await login(formState).unwrap()
-                console.log(user.access_token)
+                console.log(user)
+                dispatch(setCredentials(user))
+
             } catch (err) {
                 console.log(err)
             }
