@@ -7,9 +7,10 @@ import {Button} from "@/components/UI/Button/Button";
 
 interface HeaderProps
 {
-    updateData:(value: boolean) => void;
+    updateLoginModal:(value: boolean) => void,
+    updateCreatePostModal:(value: boolean) => void,
 }
-export const Header = ({updateData}: HeaderProps) => {
+export const Header = ({updateLoginModal, updateCreatePostModal}: HeaderProps) => {
 
     const[modal, setModal] = useState(false)
 
@@ -26,7 +27,7 @@ export const Header = ({updateData}: HeaderProps) => {
                 </div>
                 <div className={styles.sectionCenter}>
                     <Search />
-                    <Button className={styles.createBtn}>
+                    <Button className={styles.createBtn} onClick={() => updateCreatePostModal(true)}>
                         <img src={"/images/plus-light.svg"} width="20" height="20"/>
                         Create
                     </Button>
@@ -35,7 +36,7 @@ export const Header = ({updateData}: HeaderProps) => {
                     <Button className={styles.notificationsBtn}>
                         <img src={"/images/bell.svg"} width="28" height="28"/>
                     </Button>
-                    <Button className={styles.personBtn} onClick={() => updateData(true)}>
+                    <Button className={styles.personBtn} onClick={() => updateLoginModal(true)}>
                         <img src={"/images/login.svg"} width="28" height="28"/>
                         Log In
                     </Button>

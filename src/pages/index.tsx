@@ -12,6 +12,7 @@ import {AuthForm} from "@/components/Header/components/AuthForm/AuthForm";
 const Index: NextPage = () => {
   return (
       <div>
+
           <Layout>
               <Home/>
           </Layout>

@@ -2,15 +2,13 @@ import styles from "./AuthForm.module.scss"
 import {Button} from "@/components/UI/Button/Button";
 import {TextField} from "@/components/UI/TextField/TextField";
 import React, {useState} from "react";
-import {LoginRequest, useGetListNotPublishedQuery, useLoginMutation} from "../../../../services/StoodoService";
+import {LoginRequest, useGetListPublishedQuery, useLoginMutation} from "../../../../services/StoodoService";
 import { useDispatch } from 'react-redux'
 import {setCredentials} from "../../../../store/authSlice";
-import { useRouter } from 'next/router'
 
 export const AuthForm = () => {
 
     const dispatch = useDispatch()
-    const router = useRouter()
 
     const [login, { isLoading }] = useLoginMutation()
 

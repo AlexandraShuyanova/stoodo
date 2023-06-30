@@ -7,8 +7,9 @@ interface ModalWindowProps{
     children: React.ReactNode;
     visible: boolean;
     setVisible:(vis:boolean) => any;
+    className: string;
 }
-export const ModalWindow: FC<ModalWindowProps> = ({children, visible, setVisible}) => {
+export const ModalWindow: FC<ModalWindowProps> = ({children, visible, setVisible, className}) => {
 
     const rootClasses = [styles.modal]
     const backgroundClasses = [styles.darkBackground]
@@ -16,6 +17,7 @@ export const ModalWindow: FC<ModalWindowProps> = ({children, visible, setVisible
     if (visible)
     {
         rootClasses.push(styles.active)
+        rootClasses.push(className)
         backgroundClasses.push(styles.active)
     }
 

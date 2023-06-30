@@ -1,15 +1,22 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import {IPosts} from "@/types/IPosts"
 import {RootState} from "../store/store";
+import {IImage} from "@/types/IPost";
 
 export interface UserResponse {
     access_token: string
 }
 
 export interface LoginRequest {
-    username: string
+    username: string,
     password: string,
     saveSession: boolean
+}
+
+export interface CreatePostRequest {
+    title: string,
+    description: string,
+    imageID: string
 }
 export const stoodoAPI = createApi({
     reducerPath: 'stoodoAPI',
@@ -38,10 +45,17 @@ export const stoodoAPI = createApi({
                 body: credentials,
             }),
         }),
+        createPost: build.mutation<any, CreatePostRequest>({
+            query:(credentials) => ({
+                url: '/post/create',
+                method: 'POST',
+                body: credentials,
+            }),
+        }),
         protected: build.mutation<{ message: string }, void>({
             query: () => 'protected',
         }),
     }),
 });
 
-export const { useGetListPublishedQuery, useGetListNotPublishedQuery, useLoginMutation, useProtectedMutation } = stoodoAPI;
+export const { useGetListPublishedQuery, useGetListNotPublishedQuery, useLoginMutation, useProtectedMutation, useCreatePostMutation  } = stoodoAPI;
