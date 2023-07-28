@@ -15,12 +15,12 @@ export interface IPost {
     tags: ITag[],
 }
 export interface IImage {
-    id: string,
-    createdBy: string,
-    createdAt: string,
-    lastModifiedBy: string,
-    lastModifiedAt: string,
-    url: string,
+    createdBy?: string,
+    createdAt?: string,
+    lastModifiedBy?: string,
+    lastModifiedAt?: string,
+    id?: string,
+    url?: string,
 }
 export interface ITopic {
     id: string,

@@ -15,9 +15,13 @@ export interface LoginRequest {
 
 export interface CreatePostRequest {
     title: string,
+    slug: string,
+    image: string,
     description: string,
-    imageID: string
+    topic: string,
+    tagsList: string[],
 }
+
 export const stoodoAPI = createApi({
     reducerPath: 'stoodoAPI',
     baseQuery: fetchBaseQuery({
@@ -47,10 +51,17 @@ export const stoodoAPI = createApi({
         }),
         createPost: build.mutation<any, CreatePostRequest>({
             query:(credentials) => ({
-                url: '/post/create',
+                url: 'post/create',
                 method: 'POST',
                 body: credentials,
             }),
+        }),
+        uploadImage: build.mutation<IImage, FormData> ({
+            query: (credentials) => ({
+                url: '/image/upload',
+                method: 'POST',
+                body: credentials,
+            })
         }),
         protected: build.mutation<{ message: string }, void>({
             query: () => 'protected',
@@ -58,4 +69,4 @@ export const stoodoAPI = createApi({
     }),
 });
 
-export const { useGetListPublishedQuery, useGetListNotPublishedQuery, useLoginMutation, useProtectedMutation, useCreatePostMutation  } = stoodoAPI;
+export const { useGetListPublishedQuery, useGetListNotPublishedQuery, useLoginMutation, useProtectedMutation, useCreatePostMutation, useUploadImageMutation  } = stoodoAPI;

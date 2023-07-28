@@ -65,7 +65,7 @@ export const PostItem: FC<PostItemProps> = ({item}) => {
             <CardMedia
                 component="img"
                 height="194"
-                image={image.url}
+                image={image?.url}
                 alt="Paella dish"
             />
             <CardContent>

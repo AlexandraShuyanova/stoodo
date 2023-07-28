@@ -8,13 +8,13 @@ type AuthState = {
 
 const slice = createSlice({
     name: 'auth',
-    initialState: { token: null } as AuthState,
+    initialState: { token: typeof window !== 'undefined' ? localStorage.getItem('token') : null } as AuthState,
     reducers: {
         setCredentials: (
             state,
-            { payload: { access_token } }: PayloadAction<{ access_token: string }>
+            { payload: { access_token } }: PayloadAction<{ access_token: string | null }>
         ) => {
-            if (localStorage) {
+            if (localStorage && access_token) {
                 localStorage.setItem('token', access_token)
             }
 

@@ -32,9 +32,11 @@ export const AuthForm = () => {
                 const user = await login(formState).unwrap()
                 console.log(user)
                 dispatch(setCredentials(user))
+                window.location.reload()
 
             } catch (err) {
-                console.log(err)
+                localStorage.removeItem('token')
+                dispatch(setCredentials({access_token:null}))
             }
     }
 
