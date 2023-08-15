@@ -4,7 +4,7 @@ import styles from "./PostList.module.scss";
 import {useGetListNotPublishedQuery, useGetListPublishedQuery} from "../../services/StoodoService";
 
 export const PostList = () => {
-    const {data, isFetching} = useGetListNotPublishedQuery('');
+    const {data, isFetching} = useGetListPublishedQuery('');
 
     return (
         <section>
@@ -17,6 +17,5 @@ export const PostList = () => {
                 )}
             </div>
         </section>
-
     );
 };

@@ -17,7 +17,6 @@ export const PostForm = () => {
     const [createPost] = useCreatePostMutation()
     const [uploadImage] = useUploadImageMutation()
 
-
     const [formState, setFormState] = React.useState<CreatePostRequest>({
         title: '',
         slug: '',
@@ -94,7 +93,9 @@ export const PostForm = () => {
                     placeholder="Tags"
                     onChange={handleChange}
                 />
+                <textarea className={styles.textarea} rows={22} cols={109}></textarea>
                 <input type="file" onChange={event => setFile(event.target?.files)}/>
+
                 <Button className={styles.btn} onClick={handleCreatePost} >
                     Publish
                 </Button>

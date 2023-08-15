@@ -16,8 +16,8 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import styles from './PostItem.module.scss';
 import {IPost} from "@/types/IPost";
-import {FC} from "react";
-
+import {FC, useEffect} from "react";
+import {useLikePostMutation, useGetUserPostInteractionQuery} from "../../services/StoodoService";
 
 interface PostItemProps {
     item: IPost
@@ -41,9 +41,26 @@ export const PostItem: FC<PostItemProps> = ({item}) => {
 
     const {id, title, description, image, owner} = {...item}
     const [expanded, setExpanded] = React.useState(false);
+    const {data} = useGetUserPostInteractionQuery(id);
+    const [liked, setLiked] = React.useState(false);
+    const [likePost] = useLikePostMutation();
+    
+    useEffect(() => {
+        if(data != undefined)
+            setLiked(data?.liked)
+    }, [data])
+
+    const likeClass = liked ? styles.likeActive : styles.likeInactive;
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
+    };
+    const handleFavoriteClick = async() => {
+
+        const userPostInteractionResponse = await likePost({id, isLiked: !liked}).unwrap()
+        setLiked(userPostInteractionResponse.liked)
+
+        console.log(userPostInteractionResponse)
     };
 
     return (
@@ -75,7 +92,9 @@ export const PostItem: FC<PostItemProps> = ({item}) => {
             </CardContent>
             <CardActions disableSpacing>
                 <IconButton aria-label="add to favorites">
-                    <FavoriteIcon />
+                    <FavoriteIcon className={likeClass}
+                        onClick={handleFavoriteClick}
+                    />
                 </IconButton>
                 <IconButton aria-label="share">
                     <ShareIcon />

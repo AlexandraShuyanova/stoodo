@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import {IPosts} from "@/types/IPosts"
 import {RootState} from "../store/store";
-import {IImage} from "@/types/IPost";
+import {IImage, UserPostInteraction} from "@/types/IPost";
 
 export interface UserResponse {
     access_token: string
@@ -42,6 +42,9 @@ export const stoodoAPI = createApi({
         getListNotPublished: build.query<IPosts, any>({
             query: () => `post/list_not_published?page=0&size=10`
         }),
+        getUserPostInteraction: build.query<UserPostInteraction, string> ({
+            query: id => `post/user_interaction_by_post/${id}`
+        }),
         login: build.mutation<UserResponse, LoginRequest>({
             query: (credentials) => ({
                 url: 'auth/authenticate',
@@ -58,9 +61,15 @@ export const stoodoAPI = createApi({
         }),
         uploadImage: build.mutation<IImage, FormData> ({
             query: (credentials) => ({
-                url: '/image/upload',
+                url: 'image/upload',
                 method: 'POST',
                 body: credentials,
+            })
+        }),
+        likePost: build.mutation<UserPostInteraction, {id:string, isLiked:boolean}> ({
+            query: ({id, isLiked}) => ({
+                url: `post/like_post/${id}?isLiked=${isLiked}`,
+                method: 'POST',
             })
         }),
         protected: build.mutation<{ message: string }, void>({
@@ -69,4 +78,7 @@ export const stoodoAPI = createApi({
     }),
 });
 
-export const { useGetListPublishedQuery, useGetListNotPublishedQuery, useLoginMutation, useProtectedMutation, useCreatePostMutation, useUploadImageMutation  } = stoodoAPI;
+export const { useGetListPublishedQuery, useGetListNotPublishedQuery,
+    useGetUserPostInteractionQuery,
+    useLoginMutation, useProtectedMutation, useCreatePostMutation,
+    useUploadImageMutation, useLikePostMutation  } = stoodoAPI;

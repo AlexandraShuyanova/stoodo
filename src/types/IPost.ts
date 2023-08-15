@@ -31,3 +31,9 @@ export interface ITag {
     id: string,
     tag: string,
 }
+
+export interface UserPostInteraction {
+    liked: boolean,
+    opened: boolean,
+    viewed: boolean,
+}
