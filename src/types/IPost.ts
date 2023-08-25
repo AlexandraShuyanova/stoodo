@@ -37,3 +37,22 @@ export interface UserPostInteraction {
     opened: boolean,
     viewed: boolean,
 }
+
+export interface PostContentResponse {
+    createdBy: string,
+    createdAt: string,
+    lastModifiedBy: string,
+    lastModifiedAt: string,
+    id: string,
+    version: number,
+    text: string,
+    post: IPost,
+    currentVersion: boolean,
+}
+
+export interface PostStat {
+    likes_count: number,
+    opened_count: number,
+    views_count: number,
+}
+
