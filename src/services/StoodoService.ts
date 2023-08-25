@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import {IPosts} from "@/types/IPosts"
 import {RootState} from "../store/store";
-import {IImage, UserPostInteraction} from "@/types/IPost";
+import {IImage, ITopic, UserPostInteraction, PostContentResponse, PostStat} from "@/types/IPost";
 
 export interface UserResponse {
     access_token: string
@@ -18,8 +18,12 @@ export interface CreatePostRequest {
     slug: string,
     image: string,
     description: string,
-    topic: string,
+    topic: string|any|undefined,
     tagsList: string[],
+}
+
+export interface ITopics {
+    content: ITopic[];
 }
 
 export const stoodoAPI = createApi({
@@ -45,6 +49,15 @@ export const stoodoAPI = createApi({
         getUserPostInteraction: build.query<UserPostInteraction, string> ({
             query: id => `post/user_interaction_by_post/${id}`
         }),
+        getTopicsList: build.query<ITopics, any>({
+            query:() => `post/topics_list?page=0&size=10`
+        }),
+        getPostContentById: build.query<PostContentResponse, string>({
+            query: id=>`post/get_content_by_post_id/${id}`
+        }),
+        getPostStatById: build.query<PostStat, string>({
+            query: id=>`post/post_stat/${id}`
+        }),
         login: build.mutation<UserResponse, LoginRequest>({
             query: (credentials) => ({
                 url: 'auth/authenticate',
@@ -55,6 +68,13 @@ export const stoodoAPI = createApi({
         createPost: build.mutation<any, CreatePostRequest>({
             query:(credentials) => ({
                 url: 'post/create',
+                method: 'POST',
+                body: credentials,
+            }),
+        }),
+        createPostContent: build.mutation<any, {text:string, postId: string}>({
+            query:(credentials) => ({
+                url: 'post/create_post_content',
                 method: 'POST',
                 body: credentials,
             }),
@@ -79,6 +99,7 @@ export const stoodoAPI = createApi({
 });
 
 export const { useGetListPublishedQuery, useGetListNotPublishedQuery,
-    useGetUserPostInteractionQuery,
+    useGetUserPostInteractionQuery, useGetTopicsListQuery,
+    useGetPostContentByIdQuery, useGetPostStatByIdQuery,
     useLoginMutation, useProtectedMutation, useCreatePostMutation,
-    useUploadImageMutation, useLikePostMutation  } = stoodoAPI;
+    useCreatePostContentMutation, useUploadImageMutation, useLikePostMutation  } = stoodoAPI;

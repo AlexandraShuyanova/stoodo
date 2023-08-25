@@ -25,7 +25,7 @@ export const ModalWindow: FC<ModalWindowProps> = ({children, visible, setVisible
         <div>
             <div className={classNames(rootClasses)}>
                 <Button className={styles.closeBtn} onClick={() => setVisible(false)}>
-                    <img src={"/images/close.svg"} width="24" height="24"/>
+                    <img width="24" height="24"/>
                 </Button>
                 {children}
             </div>

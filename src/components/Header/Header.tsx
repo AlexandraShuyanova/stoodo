@@ -34,11 +34,11 @@ export const Header = ({updateLoginModal, updateCreatePostModal}: HeaderProps) =
                 </div>
                 <div className={styles.sectionRight}>
                     <Button className={styles.notificationsBtn}>
-                        <img src={"/images/bell.svg"} width="28" height="28"/>
+                        <img width="28" height="28"/>
                     </Button>
                     <Button className={styles.personBtn} onClick={() => updateLoginModal(true)}>
-                        <img src={"/images/login.svg"} width="28" height="28"/>
-                        Log In
+                        <img width="28" height="28"/>
+                        <p>Log In</p>
                     </Button>
                 </div>
             </div>

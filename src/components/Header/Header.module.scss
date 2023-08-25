@@ -74,7 +74,18 @@
     padding: 9px 11px;
     background-color: #ffff;
     border-radius: 8px;
-    box-shadow: inset 0 -1px 0 0 rgba(0,0,0,0.06), 0 1px 2px 0 rgba(0,0,0,0.06);
+    box-shadow: 0 0px 2px rgba(0,0,0,.08), inset 0 0 0 1px rgba(0,0,0,.06), inset 0 -1px 0 rgba(0,0,0,.12), inset 1px 0 0 rgba(0,0,0,.06), inset -1px 0 0 rgba(0,0,0,.06);
+    img {
+        margin-right: 8px;
+    }
+}
+
+.createBtn:hover {
+    box-shadow: 0 1px 3px rgba(0,0,0,.08), inset 0 0 0 1px rgba(0,0,0,.06), inset 0 -1px 0 rgba(0,0,0,.12), inset 1px 0 0 rgba(0,0,0,.06), inset -1px 0 0 rgba(0,0,0,.06);
+}
+
+.createBtn:active{
+    transform: translate(0, 0.05em);
 }
 
 .notificationsBtn {
@@ -83,6 +94,16 @@
     background: none;
     font-weight: 510;
     color: black;
+
+    img {
+            content: url("/images/bell_black.svg");
+    }
+}
+
+.notificationsBtn:hover{
+    img {
+        content: url("/images/bell_pink.svg");
+    }
 }
 
 .personBtn {
@@ -95,8 +116,23 @@
     color: black;
     font-size: 16px;
 
-    img{
+    p {
+        color: black;
+    }
+    img {
         margin-right: 8px;
+        content: url("/images/login_black.svg");
+    }
+}
+
+
+
+.personBtn:hover{
+    p {
+        color: #e55c78;
+    }
+    img {
+        content: url("/images/login_pink.svg")
     }
 }
 
