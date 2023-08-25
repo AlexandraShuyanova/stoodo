@@ -1,10 +1,10 @@
 import {IUser} from "./IUser"
 export interface IPost {
-    id: string,
     createdBy: string;
     createdAt: string,
     lastModifiedBy: string,
     lastModifiedAt: string,
+    id: string,
     title: string,
     slug: string,
     image: IImage,

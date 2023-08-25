@@ -17,6 +17,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import styles from './PostItem.module.scss';
 import {IPost} from "@/types/IPost";
 import {FC, useEffect} from "react";
+import Link from 'next/link';
 import {
     useLikePostMutation,
     useGetUserPostInteractionQuery, useGetPostContentByIdQuery, useGetPostStatByIdQuery
@@ -42,7 +43,7 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 
 export const PostItem: FC<PostItemProps> = ({item}) => {
 
-    const {id, title, description, image, owner} = {...item}
+    const {id, title, description, image, owner, slug} = {...item}
     const [expanded, setExpanded] = React.useState(false);
     const userPostInteractionData = useGetUserPostInteractionQuery(id).data;
     const [liked, setLiked] = React.useState(false);
@@ -69,34 +70,39 @@ export const PostItem: FC<PostItemProps> = ({item}) => {
     return (
         <Card className={styles.post}>
             <CardHeader className={styles.postHeader}
-                avatar={
-                    <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                        R
-                    </Avatar>
-                }
-                action={
-                    <IconButton aria-label="settings">
-                        <MoreVertIcon />
-                    </IconButton>
-                }
-                title={title}
-                subheader={owner.firstName + " " + owner.lastName}
+                        avatar={
+                            <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+                                R
+                            </Avatar>
+                        }
+                        action={
+                            <IconButton aria-label="settings">
+                                <MoreVertIcon />
+                            </IconButton>
+                        }
+                        title={title}
+                        subheader={owner.firstName + " " + owner.lastName}
             />
-            <CardMedia
-                component="img"
-                height="194"
-                image={image?.url}
-                alt="Paella dish"
-            />
-            <CardContent>
-                <Typography variant="body2" color="text.secondary">
-                    {description}
-                </Typography>
-            </CardContent>
+
+            <div className={styles.cardMainContent}>
+                <Link href={`/post/${slug}`}>
+                    <CardMedia
+                        component="img"
+                        height="194"
+                        image={image?.url}
+                        alt="Paella dish"
+                    />
+                    <CardContent>
+                        <Typography variant="body2" color="text.secondary">
+                            {description}
+                        </Typography>
+                    </CardContent>
+                </Link>
+            </div>
             <CardActions disableSpacing>
                 <IconButton aria-label="add to favorites">
                     <FavoriteIcon className={likeClass}
-                        onClick={handleFavoriteClick}
+                                  onClick={handleFavoriteClick}
                     />
                     <span>{data?.likes_count}</span>
                 </IconButton>

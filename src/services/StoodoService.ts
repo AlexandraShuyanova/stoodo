@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import {IPosts} from "@/types/IPosts"
 import {RootState} from "../store/store";
-import {IImage, ITopic, UserPostInteraction, PostContentResponse, PostStat} from "@/types/IPost";
+import {IPost, IImage, ITopic, UserPostInteraction, PostContentResponse, PostStat} from "@/types/IPost";
 
 export interface UserResponse {
     access_token: string
@@ -58,6 +58,9 @@ export const stoodoAPI = createApi({
         getPostStatById: build.query<PostStat, string>({
             query: id=>`post/post_stat/${id}`
         }),
+        getPostBySlug: build.query<IPost, string | string[] | undefined>({
+            query: slug=>`post/get_by_slug/${slug}`
+        }),
         login: build.mutation<UserResponse, LoginRequest>({
             query: (credentials) => ({
                 url: 'auth/authenticate',
@@ -101,5 +104,6 @@ export const stoodoAPI = createApi({
 export const { useGetListPublishedQuery, useGetListNotPublishedQuery,
     useGetUserPostInteractionQuery, useGetTopicsListQuery,
     useGetPostContentByIdQuery, useGetPostStatByIdQuery,
-    useLoginMutation, useProtectedMutation, useCreatePostMutation,
-    useCreatePostContentMutation, useUploadImageMutation, useLikePostMutation  } = stoodoAPI;
+    useGetPostBySlugQuery, useLoginMutation,
+    useProtectedMutation, useCreatePostMutation, useCreatePostContentMutation,
+    useUploadImageMutation, useLikePostMutation  } = stoodoAPI;
