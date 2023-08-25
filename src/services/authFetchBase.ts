@@ -18,9 +18,11 @@ const baseQuery = fetchBaseQuery({
     prepareHeaders: (headers, { getState }) => {
         // By default, if we have a token in the store, let's use that for authenticated requests
         const token = (getState() as RootState).auth.token
+
         if (token) {
             headers.set('authorization', `Bearer ${token}`)
         }
+
         return headers
     },
 });
@@ -40,8 +42,10 @@ const authFetchBase: BaseQueryFn<
             const release = await mutex.acquire();
 
             try {
+                api.dispatch(setCredentials({access_token: null}));
+
                 const refreshResult = await baseQuery(
-                    { credentials: 'include', url: 'auth/refresh_token', method: 'POST' },
+                    { url: 'auth/refresh_token', method: 'POST' },
                     api,
                     extraOptions
                 );
@@ -51,7 +55,6 @@ const authFetchBase: BaseQueryFn<
                     api.dispatch(setCredentials({access_token: token}));
                     result = await baseQuery(args, api, extraOptions);
                 } else {
-                    api.dispatch(setCredentials({access_token: null}));
                     window.location.href = '/';
                 }
             } finally {
