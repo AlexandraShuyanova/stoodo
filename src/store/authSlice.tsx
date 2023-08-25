@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import {useEffect} from 'react'
 
 type AuthState = {
+    isAuth: boolean
     token: string | null
 }
 
@@ -19,6 +19,7 @@ const slice = createSlice({
             }
 
             state.token = access_token
+            state.isAuth = access_token != null
         },
     },
 })

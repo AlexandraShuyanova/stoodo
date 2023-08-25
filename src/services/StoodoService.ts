@@ -1,7 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import {IPosts} from "@/types/IPosts"
 import {RootState} from "../store/store";
-import {IPost, IImage, ITopic, UserPostInteraction, PostContentResponse, PostStat} from "@/types/IPost";
+import authFetchBase from "./authFetchBase";
+import {IPost, IImage, ITopic, UserPostInteraction, PostContentResponse, PostStat, IAuthUser} from "@/types/IPost";
 
 export interface UserResponse {
     access_token: string
@@ -28,17 +29,7 @@ export interface ITopics {
 
 export const stoodoAPI = createApi({
     reducerPath: 'stoodoAPI',
-    baseQuery: fetchBaseQuery({
-        baseUrl:'http://localhost:3001/api/v1/',
-        prepareHeaders: (headers, { getState }) => {
-            // By default, if we have a token in the store, let's use that for authenticated requests
-            const token = (getState() as RootState).auth.token
-            if (token) {
-                headers.set('authorization', `Bearer ${token}`)
-            }
-            return headers
-        },
-    }),
+    baseQuery: authFetchBase,
     endpoints: (build) => ({
         getListPublished: build.query<IPosts, any>({
             query: () => `post/list_published?page=0&size=10`
@@ -59,7 +50,10 @@ export const stoodoAPI = createApi({
             query: id=>`post/post_stat/${id}`
         }),
         getPostBySlug: build.query<IPost, string | string[] | undefined>({
-            query: slug=>`post/get_by_slug/${slug}`
+            query: slug => `post/get_by_slug/${slug}`
+        }),
+        getAuthUser: build.query<IAuthUser, any>({
+            query: () => `auth/user_info`
         }),
         login: build.mutation<UserResponse, LoginRequest>({
             query: (credentials) => ({
@@ -106,4 +100,5 @@ export const { useGetListPublishedQuery, useGetListNotPublishedQuery,
     useGetPostContentByIdQuery, useGetPostStatByIdQuery,
     useGetPostBySlugQuery, useLoginMutation,
     useProtectedMutation, useCreatePostMutation, useCreatePostContentMutation,
-    useUploadImageMutation, useLikePostMutation  } = stoodoAPI;
+    useUploadImageMutation, useLikePostMutation,  useGetAuthUserQuery } = stoodoAPI;
+

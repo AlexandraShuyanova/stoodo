@@ -2,8 +2,13 @@ import styles from './Header.module.scss';
 import MenuIcon from '@mui/icons-material/Menu';
 import Link from 'next/link';
 import {Search} from "./components/Search/Search";
-import {useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {Button} from "@/components/UI/Button/Button";
+import {useSelector} from "react-redux";
+import {RootState} from "../../store/store";
+import {IAuthUser} from "@/types/IPost";
+import {useGetAuthUserQuery} from "../../services/StoodoService";
+import {is} from "immutable";
 
 interface HeaderProps
 {
@@ -11,6 +16,8 @@ interface HeaderProps
     updateCreatePostModal:(value: boolean) => void,
 }
 export const Header = ({updateLoginModal, updateCreatePostModal}: HeaderProps) => {
+    const isAuth = useSelector((state: RootState) => state.auth.isAuth);
+    const authUser = useGetAuthUserQuery('', { skip: isAuth }).data
 
     const[modal, setModal] = useState(false)
 
@@ -36,10 +43,16 @@ export const Header = ({updateLoginModal, updateCreatePostModal}: HeaderProps) =
                     <Button className={styles.notificationsBtn}>
                         <img width="28" height="28"/>
                     </Button>
-                    <Button className={styles.personBtn} onClick={() => updateLoginModal(true)}>
-                        <img width="28" height="28"/>
-                        <p>Log In</p>
-                    </Button>
+                    {authUser !== undefined ?
+                        <div className={styles.personBtn}>
+                            <p>{authUser.firstName + " " + authUser.lastName}</p>
+                        </div>
+                    :
+                        <Button className={styles.personBtn} onClick={() => updateLoginModal(true)}>
+                            <img width="28" height="28"/>
+                            <p>Log In</p>
+                        </Button>
+                    }
                 </div>
             </div>
         </header>
