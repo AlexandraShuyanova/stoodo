@@ -16,8 +16,8 @@ interface HeaderProps
     updateCreatePostModal:(value: boolean) => void,
 }
 export const Header = ({updateLoginModal, updateCreatePostModal}: HeaderProps) => {
-    const isAuth = useSelector((state: RootState) => state.auth.isAuth);
-    const authUser = useGetAuthUserQuery('', { skip: !isAuth }).data
+    const isAuth = useSelector((state: RootState) => state.auth.isAuth)
+    const { data:authUser } = useGetAuthUserQuery('', { skip: !isAuth })
 
     const[modal, setModal] = useState(false)
 

@@ -22,6 +22,8 @@ import {
     useLikePostMutation,
     useGetUserPostInteractionQuery, useGetPostContentByIdQuery, useGetPostStatByIdQuery
 } from "../../services/StoodoService";
+import {useSelector} from "react-redux";
+import {RootState} from "../../store/store";
 
 interface PostItemProps {
     item: IPost
@@ -42,13 +44,14 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 }));
 
 export const PostItem: FC<PostItemProps> = ({item}) => {
+    const isAuth = useSelector((state: RootState) => state.auth.isAuth)
 
     const {id, title, description, image, owner, slug} = {...item}
     const [expanded, setExpanded] = React.useState(false);
-    const userPostInteractionData = useGetUserPostInteractionQuery(id).data;
+    const { data: userPostInteractionData } = useGetUserPostInteractionQuery(id, { skip: !isAuth });
     const [liked, setLiked] = React.useState(false);
     const [likePost] = useLikePostMutation();
-    const postContentData = useGetPostContentByIdQuery(id).data;
+    const { data: postContentData } = useGetPostContentByIdQuery(id);
     const {data, isLoading, refetch} = useGetPostStatByIdQuery(id);
     
     useEffect(() => {

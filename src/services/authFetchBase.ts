@@ -44,19 +44,20 @@ const authFetchBase: BaseQueryFn<
             try {
                 api.dispatch(setCredentials({access_token: null}));
 
-                const refreshResult = await baseQuery(
+                const { data: refreshResult } = await baseQuery(
                     { url: 'auth/refresh_token', method: 'POST' },
                     api,
                     extraOptions
                 );
 
-                if ((refreshResult.data as any)?.access_token !== null) {
-                    let token: string = (refreshResult.data as any)?.access_token
-                    api.dispatch(setCredentials({access_token: token}));
-                    result = await baseQuery(args, api, extraOptions);
-                } else {
-                    window.location.href = '/';
+                if ((refreshResult as any)?.access_token !== undefined
+                    && (refreshResult as any)?.access_token !== null) {
+
+                    let token: string = (refreshResult as any)?.access_token
+                    api.dispatch(setCredentials({access_token: token}))
                 }
+
+                result = await baseQuery(args, api, extraOptions)
             } finally {
                 // release must be called once the mutex should be released again.
                 release();

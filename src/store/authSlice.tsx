@@ -18,6 +18,10 @@ const slice = createSlice({
                 localStorage.setItem('token', access_token)
             }
 
+            if (localStorage && !access_token) {
+                localStorage.removeItem('token')
+            }
+
             state.token = access_token
             state.isAuth = access_token != null
         },
