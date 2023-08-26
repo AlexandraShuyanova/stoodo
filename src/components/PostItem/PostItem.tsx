@@ -50,7 +50,7 @@ export const PostItem: FC<PostItemProps> = ({item}) => {
     const [expanded, setExpanded] = React.useState(false);
     const { data: userPostInteractionData } = useGetUserPostInteractionQuery(id, { skip: !isAuth });
     const [liked, setLiked] = React.useState(false);
-    const [likePost] = useLikePostMutation();
+    const [likePost, { isLoading: isLoadingLikePost }] = useLikePostMutation();
     const { data: postContentData } = useGetPostContentByIdQuery(id);
     const {data, isLoading, refetch} = useGetPostStatByIdQuery(id);
     
@@ -65,6 +65,10 @@ export const PostItem: FC<PostItemProps> = ({item}) => {
         setExpanded(!expanded);
     };
     const handleFavoriteClick = async() => {
+        if (isLoadingLikePost) {
+            return
+        }
+
         const isUserLikePost = await likePost({id, isLiked: !liked}).unwrap();
         refetch();
         setLiked(isUserLikePost.liked);

@@ -20,9 +20,9 @@ export const PostForm = () => {
     const [file, setFile] = useState<any|null>(null)
     const [postContent, setPostContent] = useState('')
 
-    const [createPost] = useCreatePostMutation()
-    const [createPostContent] = useCreatePostContentMutation()
-    const [uploadImage] = useUploadImageMutation()
+    const [createPost, { isLoading: isLoadingPostCreate }] = useCreatePostMutation()
+    const [createPostContent, { isLoading: isLoadingPostContentCreate }] = useCreatePostContentMutation()
+    const [uploadImage, { isLoading: isLoadingUploadImage }] = useUploadImageMutation()
 
     const {data, isFetching} = useGetTopicsListQuery('');
 
@@ -60,6 +60,10 @@ export const PostForm = () => {
     }
 
     const handleCreatePost = async() => {
+        if (isLoadingPostCreate || isLoadingPostContentCreate || isLoadingUploadImage) {
+            return
+        }
+
         try {
             const formData = new FormData()
             formData.append('file', file[0], file[0].name)

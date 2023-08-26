@@ -28,14 +28,18 @@ export const AuthForm = () => {
     }
 
     const handleLogin = async() => {
-            try {
-                const user = await login(formState).unwrap()
-                dispatch(setCredentials(user))
-                window.location.reload()
+        if (isLoading) {
+            return
+        }
 
-            } catch (err) {
-                dispatch(setCredentials({access_token:null}))
-            }
+        try {
+            const user = await login(formState).unwrap()
+            dispatch(setCredentials(user))
+            window.location.reload()
+
+        } catch (err) {
+            dispatch(setCredentials({access_token:null}))
+        }
     }
 
     return (
