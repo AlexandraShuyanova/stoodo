@@ -6,9 +6,7 @@ import {useEffect, useRef, useState} from "react";
 import {Button} from "@/components/UI/Button/Button";
 import {useSelector} from "react-redux";
 import {RootState} from "../../store/store";
-import {IAuthUser} from "@/types/IPost";
 import {useGetAuthUserQuery} from "../../services/StoodoService";
-import {is} from "immutable";
 
 interface HeaderProps
 {
@@ -17,7 +15,7 @@ interface HeaderProps
 }
 export const Header = ({updateLoginModal, updateCreatePostModal}: HeaderProps) => {
     const isAuth = useSelector((state: RootState) => state.auth.isAuth)
-    const { data:authUser } = useGetAuthUserQuery('', { skip: !isAuth })
+    const { data: authUser } = useGetAuthUserQuery('', { skip: !isAuth })
 
     const[modal, setModal] = useState(false)
 
@@ -45,7 +43,7 @@ export const Header = ({updateLoginModal, updateCreatePostModal}: HeaderProps) =
                     </Button>
                     {authUser !== undefined ?
                         <div className={styles.personBtn}>
-                            <p>{authUser.firstName + " " + authUser.lastName}</p>
+                            <p>{authUser.username}</p>
                         </div>
                     :
                         <Button className={styles.personBtn} onClick={() => updateLoginModal(true)}>

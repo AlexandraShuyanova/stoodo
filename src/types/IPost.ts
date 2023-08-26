@@ -55,13 +55,3 @@ export interface PostStat {
     opened_count: number,
     views_count: number,
 }
-
-export interface IAuthUser {
-    createdBy: string,
-    createdAt: string,
-    id: string,
-    firstName: string,
-    lastName: string,
-    email: string
-}
-

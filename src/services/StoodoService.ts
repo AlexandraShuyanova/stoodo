@@ -1,15 +1,15 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import {IPosts} from "@/types/IPosts"
-import {RootState} from "../store/store";
 import authFetchBase from "./authFetchBase";
-import {IPost, IImage, ITopic, UserPostInteraction, PostContentResponse, PostStat, IAuthUser} from "@/types/IPost";
+import {IPost, IImage, ITopic, UserPostInteraction, PostContentResponse, PostStat} from "@/types/IPost";
+import {IUser} from "@/types/IUser";
 
 export interface UserResponse {
     access_token: string
 }
 
 export interface LoginRequest {
-    username: string,
+    email: string,
     password: string,
     saveSession: boolean
 }
@@ -52,7 +52,7 @@ export const stoodoAPI = createApi({
         getPostBySlug: build.query<IPost, string | string[] | undefined>({
             query: slug => `post/get_by_slug/${slug}`
         }),
-        getAuthUser: build.query<IAuthUser, any>({
+        getAuthUser: build.query<IUser, any>({
             query: () => `auth/user_info`
         }),
         login: build.mutation<UserResponse, LoginRequest>({

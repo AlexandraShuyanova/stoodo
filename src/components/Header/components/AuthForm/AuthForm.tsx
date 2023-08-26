@@ -13,7 +13,7 @@ export const AuthForm = () => {
     const [login, { isLoading }] = useLoginMutation()
 
     const [formState, setFormState] = React.useState<LoginRequest>({
-        username: '',
+        email: '',
         password: '',
         saveSession: false,
     })
@@ -30,12 +30,10 @@ export const AuthForm = () => {
     const handleLogin = async() => {
             try {
                 const user = await login(formState).unwrap()
-                console.log(user)
                 dispatch(setCredentials(user))
                 window.location.reload()
 
             } catch (err) {
-                localStorage.removeItem('token')
                 dispatch(setCredentials({access_token:null}))
             }
     }
@@ -45,10 +43,10 @@ export const AuthForm = () => {
             <h1>STOODO</h1>
             <TextField
                 className={styles.input}
-                name='username'
+                name='email'
                 onChange={handleChange}
                 type='text'
-                placeholder='Enter username'
+                placeholder='Enter email'
             />
             <TextField
                 className={styles.input}
