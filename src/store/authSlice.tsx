@@ -8,7 +8,10 @@ type AuthState = {
 
 const slice = createSlice({
     name: 'auth',
-    initialState: { token: typeof window !== 'undefined' ? localStorage.getItem('token') : null } as AuthState,
+    initialState: {
+        isAuth: typeof window !== 'undefined' ? localStorage.getItem('token') != null : false,
+        token: typeof window !== 'undefined' ? localStorage.getItem('token') : null
+    } as AuthState,
     reducers: {
         setCredentials: (
             state,
