@@ -55,7 +55,7 @@ export const AuthForm = () => {
                 type='password'
                 placeholder='Enter password'
             />
-            <div className={styles.input}>
+            <div className={styles.checkbox}>
                 <input
                     type="checkbox"
                     id="saveSession"
