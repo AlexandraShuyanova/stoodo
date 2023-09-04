@@ -94,8 +94,9 @@ export const PostItem: FC<PostItemProps> = ({item}) => {
             <div className={styles.cardMainContent}>
                 <Link href={`/post/${slug}`}>
                     <CardMedia
+                        className={styles.postImage}
                         component="img"
-                        height="194"
+                        height="400"
                         image={image?.url}
                         alt="Paella dish"
                     />
