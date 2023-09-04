@@ -1,9 +1,8 @@
 import {NextPage} from "next";
-import {useRouter} from "next/router"
 import {Layout} from "@/components/Layout/Layout";
-import {useGetPostBySlugQuery} from "../../services/StoodoService";
-import {PostItem} from "@/components/PostItem/PostItem";
+import {getPostBySlug, getRunningQueriesThunk} from "../../services/StoodoService";
 import {Post} from "@/components/screens/Post/Post";
+import {wrapper} from "../../store/store";
 const PostPage: NextPage = () => {
 
     return (
@@ -14,3 +13,18 @@ const PostPage: NextPage = () => {
 }
 
 export default PostPage;
+
+export const getServerSideProps = wrapper.getServerSideProps(
+    (store) => async (context) => {
+        const slug = context.params?.slug;
+        if (typeof slug === "string") {
+            store.dispatch(getPostBySlug.initiate(slug));
+        }
+
+        await Promise.all(store.dispatch(getRunningQueriesThunk()));
+
+        return {
+            props: {},
+        };
+    }
+);

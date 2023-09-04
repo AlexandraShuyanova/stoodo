@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { HYDRATE } from 'next-redux-wrapper'
 import {IPosts} from "@/types/IPosts"
 import authFetchBase from "./authFetchBase";
 import {IPost, IImage, ITopic, UserPostInteraction, PostContentResponse, PostStat} from "@/types/IPost";
@@ -30,6 +31,11 @@ export interface ITopics {
 export const stoodoAPI = createApi({
     reducerPath: 'stoodoAPI',
     baseQuery: authFetchBase,
+    extractRehydrationInfo(action, { reducerPath }) {
+        if (action.type === HYDRATE) {
+            return action.payload[reducerPath]
+        }
+    },
     endpoints: (build) => ({
         getListPublished: build.query<IPosts, any>({
             query: () => `post/list_published?page=0&size=10`
@@ -100,5 +106,9 @@ export const { useGetListPublishedQuery, useGetListNotPublishedQuery,
     useGetPostContentByIdQuery, useGetPostStatByIdQuery,
     useGetPostBySlugQuery, useLoginMutation,
     useProtectedMutation, useCreatePostMutation, useCreatePostContentMutation,
-    useUploadImageMutation, useLikePostMutation,  useGetAuthUserQuery } = stoodoAPI;
+    useUploadImageMutation, useLikePostMutation,  useGetAuthUserQuery,
+    util: { getRunningQueriesThunk }} = stoodoAPI;
+
+//export for SSR
+export const { getPostBySlug } = stoodoAPI.endpoints;
 
