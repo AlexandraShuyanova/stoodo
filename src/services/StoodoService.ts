@@ -38,10 +38,10 @@ export const stoodoAPI = createApi({
     },
     endpoints: (build) => ({
         getListPublished: build.query<IPosts, any>({
-            query: () => `post/list_published?page=0&size=10`
+            query: () => `post/list_published?page=0&size=30`
         }),
         getListNotPublished: build.query<IPosts, any>({
-            query: () => `post/list_not_published?page=0&size=10`
+            query: () => `post/list_not_published?page=0&size=30`
         }),
         getUserPostInteraction: build.query<UserPostInteraction, string> ({
             query: id => `post/user_interaction_by_post/${id}`

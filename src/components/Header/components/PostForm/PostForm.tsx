@@ -1,7 +1,7 @@
 import styles from "./PostForm.module.scss"
 import {TextField} from "@/components/UI/TextField/TextField";
 import {Button} from "@/components/UI/Button/Button";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {
     CreatePostRequest,
     useCreatePostContentMutation,
@@ -9,15 +9,13 @@ import {
     useGetTopicsListQuery,
     useUploadImageMutation
 } from "../../../../services/StoodoService";
-import {useDispatch} from "react-redux";
-import {IImage} from "@/types/IPost";
+import dynamic from "next/dynamic";
+
+const HtmlEditor = dynamic(() => import("@/components/UI/HtmlEditor/HtmlEditor"), { ssr: false });
 
 export const PostForm = () => {
-
-    const dispatch= useDispatch()
-
-    const [image, setImage] = useState<any>()
     const [file, setFile] = useState<any|null>(null)
+    const [htmlEditorLoaded, setHtmlEditorLoaded] = useState<boolean>(false);
     const [postContent, setPostContent] = useState('')
 
     const [createPost, { isLoading: isLoadingPostCreate }] = useCreatePostMutation()
@@ -35,6 +33,9 @@ export const PostForm = () => {
         tagsList: []
     })
 
+    useEffect(() => {
+        setHtmlEditorLoaded(true);
+    }, []);
 
     const handleChangePostForm = ({
                               target: { name, value},
@@ -54,9 +55,9 @@ export const PostForm = () => {
             setFormState((prev) => ({ ...prev, [name]: value }))
     }
 
-    const handleChangePostContent = (event:any) =>
+    const handleChangePostContent = (data: string) =>
     {
-        setPostContent(event.target.value)
+        setPostContent(data)
     }
 
     const handleCreatePost = async() => {
@@ -133,12 +134,14 @@ export const PostForm = () => {
                     placeholder="Tags"
                     onChange={handleChangePostForm}
                 />
-                <textarea
-                    className={styles.textarea}
-                    rows={17}
-                    cols={102}
-                    onChange={handleChangePostContent}
-                />
+                <div className={styles.textarea}>
+                    <HtmlEditor
+                        onChange={handleChangePostContent}
+                        editorLoaded={htmlEditorLoaded}
+                        name={"PostContentData"}
+                        value={postContent}
+                    />
+                </div>
                 <input className={styles.imageBtn} type="file" onChange={event => setFile(event.target?.files)}/>
 
             </div>

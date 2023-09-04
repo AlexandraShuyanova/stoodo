@@ -17,9 +17,7 @@ export const PostContent: FC<PostContentProps> = ({item}) => {
         <Card className={styles.postContent}>
             <div className={styles.cardMainContent}>
                 <CardContent>
-                    <Typography variant="body2" color="text.secondary">
-                        {text}
-                    </Typography>
+                    <div dangerouslySetInnerHTML={{ __html: text }}></div>
                 </CardContent>
             </div>
         </Card>
