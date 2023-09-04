@@ -14,6 +14,11 @@
   flex-direction: column;
 }
 
+.labelPassword {
+  display: flex;
+  flex-direction: row;
+}
+
 .caption {
   margin-bottom: 7px;
   font-weight: 500;
@@ -23,11 +28,4 @@
 
 .passwordInput {
   width: 163px;
-}
-
-.eyeIconButton {
-  position: absolute;
-  right: 30px;
-  padding-top: 10px;
-  padding-bottom: 10px;
 }

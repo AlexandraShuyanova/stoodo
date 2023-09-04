@@ -25,7 +25,7 @@ export const TextField: FC<TextFieldProps> = ({className, label,
     };
 
     return (
-        <label className={classNames(styles.label, className)}>
+        <label className={classNames(type === 'password' ? styles.labelPassword : styles.label, className)}>
             {label && <span className={styles.caption}>{label}</span>}
             <input
                 className={type === 'password' ? classNames(styles.passwordInput, styles.textField) : styles.textField}
