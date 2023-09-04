@@ -5,6 +5,7 @@ import {Provider} from 'react-redux'
 import {wrapper} from '../store/store'
 
 import { config } from "@fortawesome/fontawesome-svg-core";
+import Head from "next/head";
 // Tell Font Awesome to skip adding the CSS automatically
 // since it's already imported above
 config.autoAddCss = false;
@@ -15,9 +16,14 @@ export default function MyApp({ Component, ...rest }: AppProps) {
     const { pageProps } = props;
 
     return (
-        <Provider store={store}>
-            <Component {...pageProps} />
-        </Provider>
+        <>
+            <Head>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            </Head>
+            <Provider store={store}>
+                <Component {...pageProps} />
+            </Provider>
+        </>
     )
 }
 
