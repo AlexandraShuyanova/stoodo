@@ -52,6 +52,9 @@ export const stoodoAPI = createApi({
         getPostContentById: build.query<PostContentResponse, string>({
             query: id=>`post/get_content_by_post_id/${id}`
         }),
+        getPostContentBySlug: build.query<PostContentResponse, string>({
+            query: slug=>`post/get_content_by_slug/${slug}`
+        }),
         getPostStatById: build.query<PostStat, string>({
             query: id=>`post/post_stat/${id}`
         }),
@@ -107,8 +110,9 @@ export const { useGetListPublishedQuery, useGetListNotPublishedQuery,
     useGetPostBySlugQuery, useLoginMutation,
     useProtectedMutation, useCreatePostMutation, useCreatePostContentMutation,
     useUploadImageMutation, useLikePostMutation,  useGetAuthUserQuery,
+    useGetPostContentBySlugQuery,
     util: { getRunningQueriesThunk }} = stoodoAPI;
 
 //export for SSR
-export const { getPostBySlug } = stoodoAPI.endpoints;
+export const { getPostBySlug, getPostContentBySlug } = stoodoAPI.endpoints;
 

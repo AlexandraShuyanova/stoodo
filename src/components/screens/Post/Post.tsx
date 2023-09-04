@@ -1,13 +1,13 @@
 import {useRouter} from "next/router";
-import {useGetPostBySlugQuery} from "../../../services/StoodoService";
-import {PostItem} from "@/components/PostItem/PostItem";
+import {useGetPostContentBySlugQuery} from "../../../services/StoodoService";
 import styles from "./Post.module.scss"
 import {skipToken} from "@reduxjs/toolkit/query";
+import {PostContent} from "@/components/PostContent/PostContent";
 
 export const Post = () => {
     const router = useRouter();
     const {query:{slug}} = router;
-    const {data} = useGetPostBySlugQuery(typeof slug === "string" ? slug : skipToken,
+    const {data} = useGetPostContentBySlugQuery(typeof slug === "string" ? slug : skipToken,
         {
             // If the page is not yet generated, router.isFallback will be true
             // initially until getStaticProps() finishes running
@@ -18,11 +18,12 @@ export const Post = () => {
         <section>
             <div className={styles.container}>
                 {data !== undefined ?
-                <PostItem
-                    key={data?.id}
-                    item={data}
-                />
-                : <div></div>
+                    <PostContent
+                        key={data?.id}
+                        item={data}
+                    />
+                :
+                    <div></div>
                 }
             </div>
         </section>
