@@ -11,7 +11,7 @@
 
     .cardMainContent {
         .postImage {
-            object-fit: scale-down;
+            object-fit: contain;
         }
     }
 }
