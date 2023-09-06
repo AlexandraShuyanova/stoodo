@@ -1,7 +1,13 @@
 .container {
   display: flex;
+  justify-content: center;
   flex-direction: column;
   width: 640px;
   font-family: sans-serif;
   overflow: hidden;
+}
+
+.loader {
+  text-align: center;
+  margin: 5% auto;
 }
