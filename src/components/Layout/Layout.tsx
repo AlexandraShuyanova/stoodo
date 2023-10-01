@@ -7,18 +7,23 @@ import {ModalWindow} from "@/components/UI/ModalWindow/ModalWindow";
 import {AuthForm} from "@/components/Header/components/AuthForm/AuthForm";
 import {PostForm} from "@/components/Header/components/PostForm/PostForm";
 
+
 export const Layout: FC<PropsWithChildren<{}>> = ({children}) => {
 
     const[loginModal, setLoginModal] = useState(false)
     const[createPostModal, setCreatePostModal] = useState(false)
+    const[isLeftBarVisible, setLeftBarVisibility] = useState(true)
     const updateLoginModal = (value:boolean) =>
     {
         setLoginModal(value);
     }
-
     const updateCreatePostModal = (value:boolean) =>
     {
         setCreatePostModal(value);
+    }
+    const updateLeftSideBar = (value:boolean) =>
+    {
+        setLeftBarVisibility(value);
     }
 
     return (
@@ -29,13 +34,14 @@ export const Layout: FC<PropsWithChildren<{}>> = ({children}) => {
             <ModalWindow className={styles.createPostModal} visible={createPostModal} setVisible={setCreatePostModal}>
                 <PostForm/>
             </ModalWindow>
-            <Header updateLoginModal={updateLoginModal} updateCreatePostModal={updateCreatePostModal}/>
+            <Header updateLoginModal={updateLoginModal} updateCreatePostModal={updateCreatePostModal} updateLeftSideBar={updateLeftSideBar}/>
             <div className={styles.main}>
-                <SideBar className={styles.leftSideBar}/>
+                <SideBar className={styles.leftSideBar} visible={isLeftBarVisible} setVisible={setLeftBarVisibility}/>
                 <main className={styles.postList}>
                     {children}
                 </main>
-                <SideBar className={styles.rightSideBar}/>
+                <div className={styles.rightSideBar}></div>
+                {/* <SideBar className={styles.rightSideBar}/> */}
             </div>
             <Footer />
         </div>

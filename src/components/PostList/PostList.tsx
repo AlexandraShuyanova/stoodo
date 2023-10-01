@@ -21,7 +21,7 @@ export const PostList = () => {
         }
 
         setPostList( list => [...list, ...data.content])
-    }, [data, postList])
+    }, [data])
 
     useEffect(() => {
         const handleScroll = () => {

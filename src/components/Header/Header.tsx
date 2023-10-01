@@ -12,10 +12,12 @@ interface HeaderProps
 {
     updateLoginModal:(value: boolean) => void,
     updateCreatePostModal:(value: boolean) => void,
+    updateLeftSideBar:(value: boolean) => void
 }
-export const Header = ({updateLoginModal, updateCreatePostModal}: HeaderProps) => {
+export const Header = ({updateLoginModal, updateCreatePostModal, updateLeftSideBar}: HeaderProps) => {
     const isAuth = useSelector((state: RootState) => state.auth.isAuth)
     const { data: authUser } = useGetAuthUserQuery('', { skip: !isAuth })
+    const[leftSideBar, setLeftSideBar] = useState(true)
 
     const[modal, setModal] = useState(false)
 
@@ -23,7 +25,7 @@ export const Header = ({updateLoginModal, updateCreatePostModal}: HeaderProps) =
         <header className={styles.header}>
             <div className={styles.container}>
                 <div className={styles.sectionLeft}>
-                    <Button className={styles.burger} >
+                    <Button className={styles.burger} onClick={() => {setLeftSideBar(!leftSideBar); updateLeftSideBar(!leftSideBar)}}>
                         <MenuIcon/>
                     </Button>
                     <Link className={styles.link} href='/'>

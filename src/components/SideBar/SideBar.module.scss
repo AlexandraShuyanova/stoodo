@@ -1,13 +1,17 @@
 .sidebar {
-    display: flex;
-    position: -webkit-sticky;
+    display: block;
     position: sticky;
     height: calc(100vh - 60px);;
     top: 60px;
 }
 
-.list {
-  margin: 12px 10px;
+.sidebar.inactive{
+  display: none;
+}
+
+.list{
+  padding-left: 10px;
+  margin-left: 9px;
 }
 
 .item {
