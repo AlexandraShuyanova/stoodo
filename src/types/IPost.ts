@@ -26,18 +26,15 @@ export interface ITopic {
     id: string,
     topic: string,
 }
-
 export interface ITag {
     id: string,
     tag: string,
 }
-
 export interface UserPostInteraction {
     liked: boolean,
     opened: boolean,
     viewed: boolean,
 }
-
 export interface PostContentResponse {
     createdBy: string,
     createdAt: string,

@@ -15,7 +15,12 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import MailIcon from '@mui/icons-material/Mail';
-import MenuIcon from '@mui/icons-material/Menu';
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import LocalFireDepartmentOutlinedIcon from '@mui/icons-material/LocalFireDepartmentOutlined';
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
+import HikingOutlinedIcon from '@mui/icons-material/HikingOutlined';
+import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 
@@ -58,11 +63,16 @@ export const SideBar: FC<SideBarProps> = ({className, visible, setVisible}) => {
                 </ul>*/
             }
             <List className={styles.list}>
-                {['Inbox', 'Starred', 'Send email', 'Drafts', 'All mail', 'Trash', 'Spam'].map((text, index) => (
+                {['Home', 'Favourites', 'Popular', 'News', 'Activity', 'Events'].map((text, index) => (
                     <ListItem key={text} disablePadding>
                         <ListItemButton>
                             <ListItemIcon>
-                                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                                {index === 0 && <HomeOutlinedIcon className={styles.icon}/> }
+                                {index === 1 && <FavoriteBorderOutlinedIcon className={styles.icon}/> }
+                                {index === 2 && <LocalFireDepartmentOutlinedIcon className={styles.icon}/> }
+                                {index === 3 && <ArticleOutlinedIcon className={styles.icon}/> }
+                                {index === 4 && <HikingOutlinedIcon className={styles.icon}/> }
+                                {index === 5 && <CalendarMonthOutlinedIcon className={styles.icon}/> }
                             </ListItemIcon>
                             <ListItemText primary={text} />
                         </ListItemButton>

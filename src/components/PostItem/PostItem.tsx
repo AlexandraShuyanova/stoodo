@@ -45,10 +45,9 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 
 export const PostItem: FC<PostItemProps> = ({item}) => {
     const isAuth = useSelector((state: RootState) => state.auth.isAuth)
-
     const {id, title, description, image, owner, slug} = {...item}
-    const [expanded, setExpanded] = React.useState(false);
     const { data: userPostInteractionData } = useGetUserPostInteractionQuery(id, { skip: !isAuth });
+    const [expanded, setExpanded] = React.useState(false);
     const [liked, setLiked] = React.useState(false);
     const [likePost, { isLoading: isLoadingLikePost }] = useLikePostMutation();
     const { data: postContentData } = useGetPostContentByIdQuery(id);

@@ -9,7 +9,8 @@ export const makeStore = () => {
             [stoodoAPI.reducerPath]: stoodoAPI.reducer,
             auth: authReducer,
         },
-        middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(stoodoAPI.middleware),
+        middleware: (getDefaultMiddleware) =>
+            getDefaultMiddleware().concat(stoodoAPI.middleware),
     });
 }
 
