@@ -41,6 +41,9 @@ export async function uploadImage(file: Express.Multer.File, userId: string) {
         },
     });
 
-    return image;
+    return {
+        ...image,
+        url: `${process.env.R2_PUBLIC_URL}/${image.key}`,
+    };
 
 }

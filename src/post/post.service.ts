@@ -86,3 +86,29 @@ export async function getPosts() {
         content: formattedPosts,
     };
 }
+
+export async function getPostBySlug(slug: string) {
+    const post  = await prisma.posts.findUnique({
+        where: {slug},
+        include: {
+            images: true,
+            posts_content: {
+                where: {
+                    is_current_version: true
+                },
+            },
+            owner: {
+                select: {
+                    id: true,
+                }
+            }
+        }
+    })
+    if (!post || !post.is_published) return null;
+    return {
+        ...post,
+        images: post.images
+            ? { ...post.images, url: `${process.env.R2_PUBLIC_URL}/${post.images.key}` }
+            : null,
+    };
+}
