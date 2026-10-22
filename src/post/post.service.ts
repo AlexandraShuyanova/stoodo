@@ -151,3 +151,17 @@ export async function getUserPostInteraction(postId: string, userId: string) {
         viewed: post?.is_viewed ?? false,
     };
 }
+
+export async function getPostStat(postId: string) {
+    const [likes_count, opened_count, views_count] = await Promise.all([
+        prisma.posts_user_history.count({ where: {post_id: postId, is_liked: true} }),
+        prisma.posts_user_history.count({ where: {post_id: postId, is_opened: true} }),
+        prisma.posts_user_history.count({ where: {post_id: postId, is_viewed: true} }),
+    ]);
+
+    return {
+        likes_count,
+        opened_count,
+        views_count,
+    }
+}

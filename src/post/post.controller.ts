@@ -73,3 +73,15 @@ export async function getUserPostInteraction(req: Request, res: Response) {
         });
     }
 }
+
+export async function getPostStat(req: Request, res: Response) {
+    try {
+        const result = await postService.getPostStat(req.params.id as string);
+        res.status(200).json(result);
+    } catch (error) {
+        console.error(error);
+        res.status(400).json({
+            error: error instanceof Error ? error.message : "Unknown error"
+        });
+    }
+}
