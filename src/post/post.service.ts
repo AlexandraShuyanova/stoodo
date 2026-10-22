@@ -100,6 +100,8 @@ export async function getPostBySlug(slug: string) {
             owner: {
                 select: {
                     id: true,
+                    first_name: true,
+                    last_name: true,
                 }
             }
         }
