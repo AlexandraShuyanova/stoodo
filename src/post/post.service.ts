@@ -112,3 +112,42 @@ export async function getPostBySlug(slug: string) {
             : null,
     };
 }
+
+export async function likePost(postId: string, userId: string, isLiked: boolean) {
+    const post = await prisma.posts_user_history.upsert({
+        where: { post_id_user_id: { post_id: postId, user_id: userId } },
+        create: {
+            post_id: postId,
+            user_id: userId,
+            is_liked: isLiked,
+            is_opened: false,
+            is_viewed: false,
+        },
+        update: {
+            is_liked: isLiked,
+        },
+        select: {
+            is_liked: true,
+            is_opened: true,
+            is_viewed: true,
+        }
+    });
+
+    return {
+        liked: post.is_liked,
+        opened: post.is_opened,
+        viewed: post.is_viewed,
+    }
+}
+
+export async function getUserPostInteraction(postId: string, userId: string) {
+    const post = await prisma.posts_user_history.findUnique({
+        where: { post_id_user_id: { post_id: postId, user_id: userId } },
+    });
+
+    return {
+        liked: post?.is_liked ?? false,
+        opened: post?.is_opened ?? false,
+        viewed: post?.is_viewed ?? false,
+    };
+}
