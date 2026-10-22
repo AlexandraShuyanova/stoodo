@@ -5,13 +5,14 @@ import {generateAccessToken, verifyToken} from "../jwt/jwt.service";
 export interface CreatePostRequest {
     title: string;
     image: string;
+    topicId: string;
     content: string;
 }
 
 const prisma = new PrismaClient();
 
 export async function createPost(data: CreatePostRequest, userId: string) {
-    const { title, image, content} = data;
+    const { title, image, content, topicId} = data;
 
     if (!title || !content) {
         throw new Error('All fields are required');
@@ -21,6 +22,7 @@ export async function createPost(data: CreatePostRequest, userId: string) {
         data: {
             title,
             slug: title.toLowerCase().replaceAll(' ', '-'),
+            topic_id: topicId,
             image_id: image,
             owner_id: userId,
             is_published: true,
@@ -92,6 +94,7 @@ export async function getPostBySlug(slug: string) {
         where: {slug},
         include: {
             images: true,
+            topic: true,
             posts_content: {
                 where: {
                     is_current_version: true
