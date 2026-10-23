@@ -1,6 +1,4 @@
-import bcrypt from 'bcrypt';
 import {PrismaClient} from "@prisma/client";
-import {generateAccessToken, verifyToken} from "../jwt/jwt.service";
 
 export interface CreatePostRequest {
     title: string;
@@ -11,7 +9,7 @@ export interface CreatePostRequest {
 
 const prisma = new PrismaClient();
 
-export async function createPost(data: CreatePostRequest, userId: string) {
+export async function createPost(data: CreatePostRequest, userId: string, userRole: string) {
     const { title, image, content, topicId} = data;
 
     if (!title || !content) {
@@ -25,7 +23,7 @@ export async function createPost(data: CreatePostRequest, userId: string) {
             topic_id: topicId,
             image_id: image,
             owner_id: userId,
-            is_published: true,
+            is_published: userRole === 'ADMIN',
             created_by: userId,
             created_at: new Date(),
         }

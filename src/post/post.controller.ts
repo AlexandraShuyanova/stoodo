@@ -5,7 +5,8 @@ export async function createPost(req: Request, res: Response) {
     try {
         const createPostResponse = await postService.createPost(
             req.body,
-            req.user!.id
+            req.user!.id,
+            req.user!.role,
         );
         res.status(201).json(createPostResponse);
     } catch (error) {
