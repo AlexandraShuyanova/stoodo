@@ -49,11 +49,12 @@ export async function createPost(data: CreatePostRequest, userId: string, userRo
     };
 }
 
-export async function getPosts() {
+export async function getPosts(search: string | undefined) {
 
     const posts = await prisma.posts.findMany({
         where: {
             is_published: true,
+            ...(search ? {title: {contains: search, mode: 'insensitive'}} : {}),
         },
         include: {
             images: true,

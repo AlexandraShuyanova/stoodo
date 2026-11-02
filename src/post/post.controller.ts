@@ -18,8 +18,9 @@ export async function createPost(req: Request, res: Response) {
 }
 
 export async function getPosts(req: Request, res: Response) {
+    const search = typeof req.query.search === 'string' ? req.query.search : undefined;
     try {
-        const listPublishedResponse = await postService.getPosts();
+        const listPublishedResponse = await postService.getPosts(search);
         res.status(200).json(listPublishedResponse);
     } catch (error) {
         console.error(error);
