@@ -1,5 +1,7 @@
 # Stoodo
 
+**Live demo:** [stoodo-demo.vercel.app](https://stoodo-demo.vercel.app/)
+
 A full-stack blogging platform for students: write posts in a rich-text editor, attach images, pick a topic, search the feed and like what you read.
 
 - **Backend** (this repo): REST API on Node.js, Express and PostgreSQL
