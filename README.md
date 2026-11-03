@@ -2,6 +2,10 @@
 
 **Live demo:** [stoodo-demo.vercel.app](https://stoodo-demo.vercel.app/)
 
+> **Note:** to keep the demo free of spam and inappropriate content, posts created by
+> regular users are reviewed before they appear in the feed. You can register, like
+> posts, search and try the editor; your post will be published after approval.
+
 A full-stack blogging platform for students: write posts in a rich-text editor, attach images, pick a topic, search the feed and like what you read.
 
 - **Backend** (this repo): REST API on Node.js, Express and PostgreSQL
@@ -116,6 +120,7 @@ Base path: `/api/v1`. 🔒 = requires `Authorization: Bearer <token>`.
 ## Roadmap
 
 - [ ] Pagination / infinite scroll for the feed
+- [ ] Admin moderation UI (publish / unpublish posts from the site)
 - [ ] Refresh tokens (the `refresh_tokens` table is already in the schema)
 - [ ] Comments, bookmarks (Library), Favourites and Drafts pages
 - [ ] Input validation and rate limiting on the API
